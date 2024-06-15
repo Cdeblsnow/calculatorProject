@@ -1,6 +1,6 @@
-let numberA = 0;
-let numberB = 0;
-let operator = "";
+let numberA = prompt("number a");
+let numberB = prompt("number b");
+let operator = prompt("operation");
 
 function calcSum(a,b) {
     let newSum = a + b;
@@ -21,3 +21,16 @@ function calcDiv(a,b) {
     let newDiv = a / b;
     return newDiv
 }
+
+if (operator === "+"){
+    print (calcSum(numberA,numberB));
+
+    } else if (operator === "-"){
+        print (calcSubt(numberA,numberB));
+
+    }else if (operator === "*"){
+        print (calcMult(numberA,numberB));
+
+    } else if (operator === "/"){
+        print (calcDiv(numberA,numberB));
+    } 
