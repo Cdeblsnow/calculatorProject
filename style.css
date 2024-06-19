@@ -1,0 +1,38 @@
+.container {
+    background-color: aquamarine;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.screen {
+    background-color: azure;
+    width: 350px;
+    height: 60px;
+    
+}
+
+.keys{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 300px;
+    align-content: center;
+    justify-content: center;
+}
+
+.keys div{
+    background-color: white;
+    border: 1px;
+    height: 40px;
+    width: 40px;
+    border-color: black;
+    border-style: solid;
+    margin: 5px;
+    
+    
+}
