@@ -1,6 +1,4 @@
-let numberA = prompt("number a");
-let numberB = prompt("number b");
-let operator = prompt("operation");
+
 
 function calcSum(a,b) {
     let newSum = a + b;
@@ -22,15 +20,32 @@ function calcDiv(a,b) {
     return newDiv
 }
 
-if (operator === "+"){
-    print (calcSum(numberA,numberB));
+function operate(numberA,numberB) {
+    let operator = 0;
+    let numberA = 0;
+    let numberB = 0;
+    const buttonOperator = document.querySelector(".operator");
+        buttonOperator.addEventListener("click", () => {
+            operator  = button.getAttribute("data-value");
+        } )
 
-    } else if (operator === "-"){
-        print (calcSubt(numberA,numberB));
+    const buttonNumber = document.querySelector(".number");
+        buttonNumber.addEventListener("click", () => {
 
-    }else if (operator === "*"){
-        print (calcMult(numberA,numberB));
+        })
+    
+    
 
-    } else if (operator === "/"){
-        print (calcDiv(numberA,numberB));
-    } 
+    if (operator === "+"){
+        console.log(calcSum(numberA,numberB));
+    
+        } else if (operator === "-"){
+            console.log(calcSubt(numberA,numberB));
+    
+        }else if (operator === "*"){
+            console.log(calcMult(numberA,numberB));
+    
+        } else if (operator === "/"){
+            console.log(calcDiv(numberA,numberB));
+        } 
+}
