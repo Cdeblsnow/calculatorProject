@@ -20,32 +20,42 @@ function calcDiv(a,b) {
     return newDiv
 }
 
-function operate(numberA,numberB) {
-    let operator = 0;
-    let numberA = 0;
-    let numberB = 0;
-    const buttonOperator = document.querySelector(".operator");
-        buttonOperator.addEventListener("click", () => {
-            operator  = button.getAttribute("data-value");
-        } )
+function operate() {
+    let operator = null;
+    let numberA = null;
+    let numberB = null;
+    let displayText= "";
+    const screenText = document.querySelector("#update");
+    const buttonOperator = document.querySelectorAll(".operator");
+    const buttonNumber = document.querySelectorAll(".number");
+    
+        buttonOperator.forEach(button => {
+            button.addEventListener("click", () => {
+                operator = button.getAttribute("data-value");
+                screenText.textContent = displayText + operator;
+            });
+        });
 
-    const buttonNumber = document.querySelector(".number");
-        buttonNumber.addEventListener("click", () => {
+        buttonNumber.forEach(button => {
+            button.addEventListener("click", () => {
+                if (!operator){
+                numberA = parseFloat(button.textContent);
+                
+                } else {
+                numberB = parseFloat(button.textContent);
+                
+                }
+                displayText += button.textContent;
+                screenText.textContent = displayText;
 
-        })
-    
-    
+             })
+        });
 
-    if (operator === "+"){
-        console.log(calcSum(numberA,numberB));
     
-        } else if (operator === "-"){
-            console.log(calcSubt(numberA,numberB));
     
-        }else if (operator === "*"){
-            console.log(calcMult(numberA,numberB));
+        
+
     
-        } else if (operator === "/"){
-            console.log(calcDiv(numberA,numberB));
-        } 
 }
+
+operate();
