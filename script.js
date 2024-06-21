@@ -24,8 +24,8 @@ function calcDiv(a,b) {
 
 function operate() {
     let operator = "";
-    let numberA = 0;
-    let numberB = 0;
+    let numberA = [];
+    let numberB = [];
     let displayText= "";
     let answer=0;
     const screenText = document.querySelector("#update");
@@ -35,7 +35,7 @@ function operate() {
     
         buttonOperator.forEach(button => {
             button.addEventListener("click", () => {
-                operator = button.textContent;
+                operator = button.textContent.trim();
                 displayText += operator;
                 screenText.textContent = displayText;
             });
@@ -44,47 +44,34 @@ function operate() {
         buttonNumber.forEach(button => {
             button.addEventListener("click", () => {
                 if (operator === ""){
-                numberA = Number(button.textContent);
-                
-                
+                numberA.push(button.textContent);
+                console.log(numberA);
                 } else {
-                numberB = Number(button.textContent);
-                
-                
+                numberB.push(button.textContent);
+                console.log(numberB);
                 }
-                
                 displayText += button.textContent;
                 screenText.textContent = displayText;
-                
-
              })
         });
 
-        
-        if (calcResult) {
+        if (calcResult ) {
             calcResult.addEventListener("click", () => {
-                
-                    if (operator === "+") {
-                        console.log(numberA);
+                    numberA = parseFloat(numberA.join(','));
+                    console.log(numberA);
+                    numberB = parseFloat(numberB.join(','));
                     console.log(numberB);
-                        answer = calcSum(numberA, numberB);
-                        
+    
+                    if (operator === "+") {
+                        answer = calcSum(numberA, numberB);  
                     } else if (operator === "-") {
                         answer = calcSubt(numberA, numberB);
                     } else if (operator === "X") {
                         answer = calcMult(numberA, numberB);
                     } else if (operator === "/") {
                         answer = calcDiv(numberA, numberB);
-                    } else {
-                        console.log(" its 0 ")
-                    }
+                    } 
                     screenText.textContent = answer;
-                    console.log(numberA);
-                    console.log(numberB);
-                    console.log(answer);
-
-                    
-                
                 });
         
             }
