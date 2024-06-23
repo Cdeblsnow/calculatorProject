@@ -24,14 +24,16 @@ function calcDiv(a,b) {
 
 function operate() {
     let operator = "";
-    let numberA = [];
-    let numberB = [];
+    let numberA = "";
+    let numberB = "";
     let displayText= "";
     let answer=0;
     const screenText = document.querySelector("#update");
     const buttonOperator = document.querySelectorAll(".operator");
     const buttonNumber = document.querySelectorAll(".number");
     const calcResult = document.querySelector(".result");
+    const singleDelete = document.querySelector(".delete");
+    const fullDelete = document.querySelector(".fullDelete");
     
         buttonOperator.forEach(button => {
             button.addEventListener("click", () => {
@@ -44,26 +46,25 @@ function operate() {
         buttonNumber.forEach(button => {
             button.addEventListener("click", () => {
                 if (operator === ""){
-                numberA.push(button.textContent);
-                console.log(numberA);
+                numberA += button.textContent.trim();
                 } else {
-                numberB.push(button.textContent);
-                console.log(numberB);
+                numberB += button.textContent.trim();
                 }
-                displayText += button.textContent;
+                displayText += button.textContent.trim();
                 screenText.textContent = displayText;
              })
         });
 
         if (calcResult ) {
             calcResult.addEventListener("click", () => {
-                    numberA = parseFloat(numberA.join(','));
-                    console.log(numberA);
-                    numberB = parseFloat(numberB.join(','));
-                    console.log(numberB);
-    
+
+                numberA = Number(numberA);
+                numberB = Number(numberB);
+
                     if (operator === "+") {
                         answer = calcSum(numberA, numberB);  
+                        console.log(numberA);
+                        console.log(numberB);
                     } else if (operator === "-") {
                         answer = calcSubt(numberA, numberB);
                     } else if (operator === "X") {
@@ -75,6 +76,23 @@ function operate() {
                 });
         
             }
+
+        singleDelete.addEventListener("click", () => {
+
+             if ( operator !== "" && numberB.length > 0) {
+                numberB = numberB.slice(0,-1);
+                console.log(numberB);
+             } else {
+                operator = "";
+                numberA +="";
+                numberA = numberA.slice(0,-1);
+                console.log(numberA);
+             }
+            displayText = displayText.slice(0,-1);
+            screenText.textContent = displayText;
+
+            
+        });
     
 }
 
