@@ -28,7 +28,6 @@ function operate() {
     let numberB = "";
     let displayText= "";
     let answer=0;
-    let clickCounter = 0;
     const screenText = document.querySelector("#update");
     const buttonOperator = document.querySelectorAll(".operator");
     const buttonNumber = document.querySelectorAll(".number");
@@ -38,7 +37,17 @@ function operate() {
     const fullDelete = document.querySelector(".fullDelete");
     
         buttonOperator.forEach(button => {
-            button.addEventListener("click", () => {
+            button.addEventListener("click", () => { 
+                if (numberA !== "" && numberB !== ""){
+                    answer = calculateResult( numberA, numberB);
+                    if (!isNaN(answer)) {
+                        numberA = answer.toString();
+                        numberB = ""; 
+                        displayText = numberA;
+                        displayText += operator;
+                        screenText.textContent = displayText;
+                    }
+                }
                 operator = button.textContent.trim();
                 displayText += operator;
                 screenText.textContent = displayText;
@@ -49,24 +58,11 @@ function operate() {
             button.addEventListener("click", () => {
                 if (operator === ""){
                 numberA += button.textContent.trim();
-                } else {
+                } else{
                 numberB += button.textContent.trim();
-                
                 }
-                clickCounter++;
                 displayText += button.textContent.trim();
-                screenText.textContent = displayText;
-                
-                if ( clickCounter >= 2){
-                    answer = calculateResult();
-                    displayText = answer;
-                    numberA = answer;
-                    numberB += button.textContent.trim();
-                    screenText.textContent = answer;
-                    console.log(displayText);
-                }
-                
-                
+                screenText.textContent = displayText;    
              })
         });
 
@@ -82,8 +78,9 @@ function operate() {
                     } else if (operator === "/") {
                         answer = calcDiv(numberA, numberB);
                     } 
-                    operator = "";
+                    operator = ""; 
                     screenText.textContent = answer
+                    return answer;
               }
             
 
