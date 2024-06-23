@@ -57,10 +57,8 @@ function operate() {
 
         if (calcResult ) {
             calcResult.addEventListener("click", () => {
-
                 numberA = Number(numberA);
                 numberB = Number(numberB);
-
                     if (operator === "+") {
                         answer = calcSum(numberA, numberB);  
                         console.log(numberA);
@@ -74,25 +72,32 @@ function operate() {
                     } 
                     screenText.textContent = answer;
                 });
-        
             }
 
         singleDelete.addEventListener("click", () => {
-
              if ( operator !== "" && numberB.length > 0) {
                 numberB = numberB.slice(0,-1);
                 console.log(numberB);
              } else {
                 operator = "";
-                numberA +="";
                 numberA = numberA.slice(0,-1);
                 console.log(numberA);
              }
             displayText = displayText.slice(0,-1);
             screenText.textContent = displayText;
-
-            
         });
+
+        fullDelete.addEventListener("click", () => {
+            numberA = "";
+            numberB = "";
+            operator = "";
+            answer = "";
+            displayText = "";
+            screenText.textContent = "";
+            console.log(numberA);
+            console.log(numberB);
+            console.log(operator);
+        })
     
 }
 
