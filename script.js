@@ -35,7 +35,49 @@ function operate() {
     calcResult.addEventListener("click", calculateResult);
     const singleDelete = document.querySelector(".delete");
     const fullDelete = document.querySelector(".fullDelete");
-    
+
+    document.addEventListener("keyup", (e) =>{
+        const key = e.key;
+            if(!isNaN(key)) {
+                if (operator === "") {
+                    numberA += key;
+                } else {
+                    numberB += key;
+                }
+                displayText += key;
+                screenText.textContent = displayText;
+
+            } else if (['+','-','X','/'].includes(key)) {
+                if (numberA !== "" && numberB !== ""){
+                    answer = calculateResult( numberA, numberB);
+                    if (!isNaN(answer)) {
+                        numberA = answer.toString();
+                        numberB = ""; 
+                        displayText = numberA;
+                        screenText.textContent = displayText;
+                    }
+                }
+                
+                operator = key;
+                displayText += ` ${operator} `;
+                screenText.textContent = displayText;    
+
+            } else if ( key === "Enter") {
+                if(numberA !== "" && numberB !== "" && operator !== ""){
+                    answer = calculateResult(numberA,numberB);
+                }
+            } else if ( key === "Backspace") {
+                if ( operator !== "" && numberB.length > 0) {
+                    numberB = numberB.slice(0,-1);
+                 } else {
+                    operator = "";
+                    numberA = numberA.slice(0,-1); 
+                 }
+                displayText = displayText.slice(0,-1);
+                screenText.textContent = displayText;
+            }
+        });
+ 
         buttonOperator.forEach(button => {
             button.addEventListener("click", () => { 
                 if (numberA !== "" && numberB !== ""){
