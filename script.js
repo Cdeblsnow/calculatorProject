@@ -4,21 +4,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function calcSum(a,b) {
     let newSum = a + b;
+    newSum= (Math.round(newSum * 10) / 10).toFixed(1);
     return newSum;
 }
 
 function calcSubt(a,b) {
     let newSubt = a - b;
+    newSubt= (Math.round(newSubt * 10) / 10).toFixed(1);
     return newSubt;
 }
 
 function calcMult(a,b) {
     let newMult = a * b;
+    newMult= (Math.round(newMult * 10) / 10).toFixed(1);
     return newMult;
 }
 
 function calcDiv(a,b) {
     let newDiv = a / b;
+    newDiv= (Math.round(newDiv * 10) / 10).toFixed(1);
     return newDiv;
 }
 
@@ -35,7 +39,9 @@ function operate() {
     calcResult.addEventListener("click", calculateResult);
     const singleDelete = document.querySelector(".delete");
     const fullDelete = document.querySelector(".fullDelete");
+    const pDecimal = document.getElementById("decimal");
 
+    
     document.addEventListener("keyup", (e) =>{
         const key = e.key;
             if(!isNaN(key)) {
@@ -57,10 +63,9 @@ function operate() {
                         screenText.textContent = displayText;
                     }
                 }
-                
-                operator = key;
-                displayText += ` ${operator} `;
-                screenText.textContent = displayText;    
+                        operator = key;
+                        displayText += ` ${operator} `;
+                        screenText.textContent = displayText;    
 
             } else if ( key === "Enter") {
                 if(numberA !== "" && numberB !== "" && operator !== ""){
@@ -73,13 +78,14 @@ function operate() {
                     operator = "";
                     numberA = numberA.slice(0,-1); 
                  }
-                displayText = displayText.slice(0,-1);
-                screenText.textContent = displayText;
+                    displayText = displayText.slice(0,-1);
+                    screenText.textContent = displayText;
             }
-        });
+    });
  
         buttonOperator.forEach(button => {
             button.addEventListener("click", () => { 
+                
                 if (numberA !== "" && numberB !== ""){
                     answer = calculateResult( numberA, numberB);
                     if (!isNaN(answer)) {
@@ -93,36 +99,65 @@ function operate() {
                 operator = button.textContent.trim();
                 displayText += operator;
                 screenText.textContent = displayText;
+                
             });
         });
 
         buttonNumber.forEach(button => {
             button.addEventListener("click", () => {
-                if (operator === ""){
-                numberA += button.textContent.trim();
-                } else{
-                numberB += button.textContent.trim();
+                const buttonText = button.textContent.trim();
+
+        if (buttonText === '.') {
+            if (operator === "") {
+                if (!numberA.includes(".")) {
+                    numberA += buttonText;
                 }
-                displayText += button.textContent.trim();
-                screenText.textContent = displayText;    
-             })
+            } else {
+                if (!numberB.includes(".")) {
+                    numberB += buttonText;
+                }
+            }
+            } else {
+                if (operator === "") {
+                    numberA += buttonText;
+                } else {
+                    numberB += buttonText;
+                }
+            }
+        
+            displayText += buttonText;
+            screenText.textContent = displayText;
+            if (operator === "") {
+                pDecimal.disabled = numberA.includes(".");
+            } else {
+                pDecimal.disabled = numberB.includes(".");
+            }
+            });
         });
+        
 
             function calculateResult() {
                 numberA = Number(numberA);
                 numberB = Number(numberB);
-                    if (operator === "+") {
+                     if(numberA !== 0 && numberB === 0){
+                        window.alert("NO kaboom time Rico ");
+                        answer = "Nope";
+                    } else if (operator === "+") {
                         answer = calcSum(numberA, numberB);  
                     } else if (operator === "-") {
                         answer = calcSubt(numberA, numberB);
                     } else if (operator === "X") {
                         answer = calcMult(numberA, numberB);
                     } else if (operator === "/") {
-                        answer = calcDiv(numberA, numberB);
+                        answer = calcDiv(numberA, numberB);  
                     } 
                     operator = ""; 
                     screenText.textContent = answer
-                    return answer;
+                    console.log(numberA)
+                    console.log(numberB)
+                    console.log(answer,"cal")
+
+                    return  answer;
               }
             
 
@@ -147,5 +182,3 @@ function operate() {
         });
     
 }
-
-
